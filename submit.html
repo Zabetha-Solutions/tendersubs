@@ -14,8 +14,9 @@
 <body>
 
   <div id="setup-banner" class="setup-banner" style="display:none;">
-    Submission delivery isn't configured yet. Open <code>assets/js/config.js</code> and add your
-    <a href="https://formspree.io" target="_blank" rel="noopener">Formspree</a> form ID to start receiving real submissions.
+    Submission delivery isn't configured yet. Open <code>assets/js/config.js</code> and set
+    <code>contactEmail</code> to start receiving real submissions via
+    <a href="https://formsubmit.co" target="_blank" rel="noopener">FormSubmit.co</a>.
   </div>
 
   <header class="site-header">
@@ -53,8 +54,10 @@
           <form id="tender-form" method="POST" enctype="multipart/form-data" novalidate>
 
             <!-- Honeypot field for spam protection (kept off-screen, must stay empty) -->
-            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
             <input type="hidden" name="_subject" value="New tender submission — Zabetha Solutions" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
 
             <h3>Company &amp; contact details</h3>
             <div class="form-grid">

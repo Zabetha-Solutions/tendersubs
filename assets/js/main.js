@@ -27,19 +27,21 @@
     });
   }
 
+  var PLACEHOLDER_EMAIL = "your-email@example.com";
+
   function initTenderForm() {
     var form = document.getElementById("tender-form");
     if (!form) return;
 
-    var formspreeId = CONFIG.formspreeId;
-    var isConfigured = formspreeId && formspreeId !== "YOUR_FORM_ID";
+    var contactEmail = CONFIG.contactEmail;
+    var isConfigured = contactEmail && contactEmail !== PLACEHOLDER_EMAIL;
     var setupBanner = document.getElementById("setup-banner");
     var submitBtn = form.querySelector('button[type="submit"]');
 
     if (!isConfigured) {
       if (setupBanner) setupBanner.style.display = "block";
     } else {
-      form.action = "https://formspree.io/f/" + formspreeId;
+      form.action = "https://formsubmit.co/ajax/" + encodeURIComponent(contactEmail);
     }
 
     initFileDrop(form);
@@ -84,8 +86,10 @@
           clearFileList(form);
         } else {
           return response.json().then(function (data) {
-            var message = data && data.errors ? data.errors.map(function (e) { return e.message; }).join(", ") : "Something went wrong submitting your documents. Please try again.";
+            var message = (data && (data.message || (data.errors && data.errors.map(function (e) { return e.message; }).join(", ")))) || "Something went wrong submitting your documents. Please try again.";
             showStatus(form, "error", message);
+          }).catch(function () {
+            showStatus(form, "error", "Something went wrong submitting your documents. Please try again.");
           });
         }
       })

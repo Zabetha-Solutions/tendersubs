@@ -23,31 +23,36 @@ hosted directly on GitHub Pages — no build step, no server required.
 
 No build tooling is required — the site is plain static files.
 
-## Connecting the submission form (Formspree)
+## Connecting the submission form (FormSubmit.co)
 
-`submit.html` posts to [Formspree](https://formspree.io), a free service that
-forwards form submissions (including uploaded documents) to your email
-without needing a backend server.
+`submit.html` posts to [FormSubmit.co](https://formsubmit.co), a free service
+that emails form submissions — including uploaded documents — directly to
+you, with no signup, dashboard, or paid plan required for file attachments
+(unlike some alternatives, which gate attachments behind a paid tier).
 
-1. Create a free account at [formspree.io](https://formspree.io).
-2. Create a new form and set its notification email to the address that
-   should receive tender submissions.
-3. Copy the form's endpoint ID — the part after `/f/` in
-   `https://formspree.io/f/xxxxxxxx`.
-4. Open `assets/js/config.js` and replace `YOUR_FORM_ID` with that ID:
+1. Open `assets/js/config.js` and set `contactEmail` to the address that
+   should receive tender submissions:
 
    ```js
    window.ZABETHA_CONFIG = {
-     formspreeId: "xxxxxxxx",
      contactEmail: "your-email@example.com",
    };
    ```
 
-5. Commit and push. Submissions (including uploaded files, up to Formspree's
-   plan limits) will now be emailed to you.
+2. Commit and push.
+3. On the live site, submit the form once yourself (a test submission is
+   fine). FormSubmit.co will send a confirmation email to `contactEmail`
+   with an **"Activate Form"** link — click it once. This is a one-time
+   step; submissions sent before activation won't be delivered.
+4. After that, every submission (including attached documents) is emailed
+   to you automatically.
 
-Until `formspreeId` is set, `submit.html` shows a setup notice instead of
-silently failing.
+Until `contactEmail` is changed from its placeholder value, `submit.html`
+shows a setup notice instead of silently failing.
+
+**Note on file size:** FormSubmit.co's free tier has its own attachment
+size limits. If a large submission fails to deliver, ask the bidder to
+split files across a couple of submissions or compress them into a zip.
 
 ## Local preview
 
@@ -63,5 +68,5 @@ Then open `http://localhost:8000` in your browser.
 
 - **Branding / colors** — edit the CSS variables at the top of `assets/css/style.css`.
 - **Sector checklists** — edit the content in `sectors.html` and the sector cards in `index.html`.
-- **Form fields** — edit `submit.html`; each `<input>`/`<select>`/`<textarea>` `name` attribute becomes the field label in the email Formspree sends you.
+- **Form fields** — edit `submit.html`; each `<input>`/`<select>`/`<textarea>` `name` attribute becomes the field label in the email FormSubmit.co sends you.
 - **Contact details** — update the email address in `about.html` and `assets/js/config.js`.
