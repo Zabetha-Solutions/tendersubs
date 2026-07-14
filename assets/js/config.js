@@ -10,6 +10,6 @@
 // Until this is set, the submission form will show a setup notice instead
 // of the live form.
 window.ZABETHA_CONFIG = {
-  formspreeId: "YOUR_FORM_ID",
-  contactEmail: "info@zabetha-solutions.example",
+  formspreeId: mykrzjkn,
+  contactEmail: zabethasolutions@gmail.com,
 };
